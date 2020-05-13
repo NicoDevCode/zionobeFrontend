@@ -1,0 +1,31 @@
+<div class="container-fuild">
+<p>Lista de usuarios</p>
+<button (click)="GetUsers()" mat-raised-button color="primary">Todos los usuarios</button> <button (click)="getUsuarioEstado(bool = 1)" class="ml-3" mat-raised-button color="primary">Usuarios aprobados</button>  <button (click)="getUsuarioEstado(bool = 2)" class="ml-3" mat-raised-button color="primary">Usuarios rechazados</button>
+<table class="table mt-3">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id user</th>
+      <th *ngIf="!sowMonto" scope="col">Nombre</th>
+      <th *ngIf="!sowMonto" scope="col">Email</th>
+      <th scope="col">aprobado</th>
+      <th *ngIf="sowMonto" scope="col">Monto</th>
+      <th *ngIf="sowDetail" scope="col">Detalle</th>
+      <th *ngIf="sowMonto" scope="col">Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.userId}}</th>
+      <td *ngIf="!sowMonto">{{user.name}}</td>
+      <td *ngIf="!sowMonto">{{user.email}}</td>
+      <td>{{user.aprobado}}</td>
+      <td *ngIf="sowMonto">{{user.monto}}</td>
+      <td *ngIf="sowDetail" > <button (click)="getUserId(user.userId)"  type="button" class="btn btn-primary btn-sm">creditos</button></td>
+      <td *ngIf="sowMonto">
+           <button (click)="pagarCredito(user.Id, user.monto, user.aprobado, user.userId)" *ngIf="user.estado == 'pendiente'"  type="button" class="btn btn-primary btn-sm">pendiente</button>
+           <button disabled  *ngIf="user.estado == 'pagado'"type="button" class="btn btn-secondary btn-sm disable">pagado</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
